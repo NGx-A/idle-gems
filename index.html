@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Idle Gems</title>
+</head>
+<body>
+    <div class="version"></div>
+
+    <div class="shard-container">
+        <div class="shard">Shards: <span class="currency">5</span></div>
+        <div class="shard" style="display: none; color: rgb(0, 47, 189);">Mana: <span class="currency">0</span></div>
+        <div class="shard" style="display: none;">Shards: <span>0</span></div>
+    </div>
+
+    <nav>
+        <div class="navBtn" onclick="openTab('gem-container')">Gems</div>
+        <div class="navBtn" onclick="openTab('rune-container')">Runes</div>
+    </nav>
+
+    <div class="prestige-container">
+        <div class="runePrestige" style="display: none;" onclick="getRune()">RESET TO GAIN A RANDOM RUNE</div>
+    </div>
+    
+
+    <div class="tab" id="gem-container">
+        <div class="gem">
+            <div class="manafy" style="display: none;" onclick="manafyGem('0')">Enhance gem | <span class="mana-cost">1</span> mana</div>
+            <div class="left" onclick="craftGem('0')">
+                <span class="gem-name">BASIC GEM</span> <br>
+                <span class="gem-amount">Amount: 0</span> <br>
+                <span class="gem-speed">Speed: 0</span> <br>
+                <span class="gem-cost">Cost: 0</span> <br>
+            </div>
+            <div class="right" onclick="craftGem('0')">
+                <span>Produces <span class="gem-effect">1</span> shard(s)</span>
+            </div>
+            <div class="progress"></div> 
+        </div>
+        <div class="gem">
+            <div class="manafy" style="display: none;" onclick="manafyGem('1')">Enhance gem | <span class="mana-cost">1</span> mana</div>
+            <div class="left" onclick="craftGem('1')">
+                <span class="gem-name">NORMAL GEM</span> <br>
+                <span class="gem-amount">Amount: 0</span> <br>
+                <span class="gem-speed">Speed: 0</span> <br>
+                <span class="gem-cost">Cost: 0</span> <br>
+            </div>
+            <div class="right" onclick="craftGem('1')">
+                <span>Produces <span class="gem-effect">5</span> shards</span> <br>
+            </div>
+            <div class="progress"></div>
+        </div>
+        <div class="gem">
+            <div class="manafy" style="display: none;" onclick="manafyGem('2')">Enhance gem | <span class="mana-cost">1</span> mana</div>
+            <div class="left" onclick="craftGem('2')">
+                <span class="gem-name">ADVANCED GEM</span> <br>
+                <span class="gem-amount">Amount: 0</span> <br>
+                <span class="gem-speed">Speed: 0</span> <br>
+                <span class="gem-cost">Cost: 0</span> <br>
+            </div>
+            <div class="right" onclick="craftGem('2')">
+                <span>Produces <span class="gem-effect">1</span> basic gem(s) </span> <br>
+            </div>
+            <div class="progress"></div>
+        </div>
+
+        <div class="gem" style="display: none;" onclick="manafyGem('3')">
+            <div class="manafy" style="display: none;">Enhance gem | <span class="mana-cost">1</span> mana</div>
+            <div class="left"  onclick="craftGem('3')">
+                <span class="gem-name">MANA GEM</span> <br>
+                <span class="gem-amount">Amount: 0</span> <br>
+                <span class="gem-speed">Speed: 0</span> <br>
+                <span class="gem-cost">Cost: 0</span> <br>
+            </div>
+            <div class="right"  onclick="craftGem('3')">
+                <span>Produces <span class="gem-effect">1</span> mana </span> <br>
+            </div>
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <div class="tab" id="rune-container">
+        <div class="rune-total">
+            <span style="margin: 1vmin;">Speed +<span id="rune-speed">0</span>%</span> 
+            <span style="margin: 1vmin;">Power +<span id="rune-power">0</span>%</span> 
+            <span style="margin: 1vmin;">Cost -<span id="rune-cost">0</span>%</span> 
+        </div>
+        <div class="rune"  style="display: none;">
+            <span class="rune-name">SPEED RUNE</span> <br>
+            <span class="rune-amount">Amount: 0</span> <br>
+            <span class="rune-effect">Effect: 0</span> <br>
+            <span class="rune-rarity"></span> <br>
+        </div>
+        <div class="rune" style="display: none;">
+            <span class="rune-name">POWER RUNE</span> <br>
+            <span class="rune-amount">Amount: 0</span> <br>
+            <span class="rune-effect">Effect: 0</span> <br>
+            <span class="rune-rarity"></span> <br>
+        </div>
+        <div class="rune" style="display: none;">
+            <span class="rune-name">COST RUNE</span> <br>
+            <span class="rune-amount">Amount: 0</span> <br>
+            <span class="rune-effect">Effect: 0</span> <br>
+            <span class="rune-rarity"></span> <br>
+        </div>
+        <div class="rune" style="display: none;">
+            <span class="rune-name">MEGA SPEED RUNE</span> <br>
+            <span class="rune-amount">Amount: 0</span> <br>
+            <span class="rune-effect">Effect: 0</span> <br>
+            <span class="rune-rarity" style="color: green;"></span> <br>
+        </div>
+        <div class="rune" style="display: none;">
+            <span class="rune-name">MEGA POWER RUNE</span> <br>
+            <span class="rune-amount">Amount: 0</span> <br>
+            <span class="rune-effect">Effect: 0</span> <br>
+            <span class="rune-rarity" style="color: green;"></span> <br>
+        </div>
+    </div>
+</body>
+<script src="js/game.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/rune.js"></script>
+<script src="js/format.js"></script>
+<script src="js/save.js"></script>
+</html>
