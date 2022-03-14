@@ -15,12 +15,12 @@ const rune_effect = document.querySelectorAll(".rune-effect")
 const rune_rarity = document.querySelectorAll(".rune-rarity")
 
 const updateUI = () => {
-    currency[0].textContent = format(game.currency.shard)
-    currency[1].textContent = Math.floor(game.currency.mana)
+    currency[0].textContent = format(game.currency.shard, 1)
+    currency[1].textContent = Math.floor(game.currency.mana, 1)
 
     for(i = 0; i < gems.length; i++) {
-        gem_amount[i].textContent = `Amount ${Math.floor(gems[i].amount)}`
-        gem_cost[i].textContent = `Cost ${format(gems[i].cost)} Shards`
+        gem_amount[i].textContent = `Amount ${Math.floor(gems[i].amount)} [${format(gems[i].bought)}]`
+        gem_cost[i].textContent = `Cost ${format(gems[i].cost, 1)} Shards`
 
         gems[i].amount == 0 ? gem_speed[i].textContent = `Speed 0` :gem_speed[i].textContent = `Speed ${format(gems[i].speed, 2)}`
     }
@@ -37,8 +37,10 @@ const updateUI = () => {
     rune_effect[0].textContent = `+${format(speed_rune.effect * 100)}% Speed to all gems`
     rune_effect[1].textContent = `+${format(power_rune.effect * 100)}% Power to all gems`
     rune_effect[2].textContent = `${format(cost_rune.effect * 100, 1)}% Cheaper gems`
-    rune_effect[3].textContent = `+${format(mega_speed_rune.effect * 100)}% Speed to all gems`
-    rune_effect[4].textContent = `+${format(mega_power_rune.effect * 100)}% Power to all gems`
+    rune_effect[3].textContent = `${format(shard_rune.effect * 100)}% More shards`
+    rune_effect[4].textContent = `+${format(mega_speed_rune.effect * 100)}% Speed to all gems`
+    rune_effect[5].textContent = `+${format(mega_power_rune.effect * 100)}% Power to all gems`
+    rune_effect[6].textContent = `+${format(mana_rune.effect * 100)}% Mana effect`
 
     document.querySelector("#rune-speed").textContent = format((speed_rune.effect + mega_speed_rune.effect) * 100)
     document.querySelector("#rune-power").textContent = format((power_rune.effect + mega_power_rune.effect) * 100)

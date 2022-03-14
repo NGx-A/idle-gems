@@ -4,6 +4,7 @@ const loadGame = () => {
 	let savedGame = JSON.parse(localStorage.getItem("gameSave"))
 	if(typeof savedGame.currentTab !== "undefined") game.currentTab = savedGame.currentTab
 	if(typeof savedGame.runesUnlocked !== "undefined") game.runesUnlocked = savedGame.runesUnlocked
+	if(typeof savedGame.autoRune !== "undefined") autoRune = savedGame.autoRune
 	if(typeof savedGame.shard !== "undefined") game.currency.shard = savedGame.shard
 	if(typeof savedGame.mana !== "undefined") game.currency.mana = savedGame.mana
 
@@ -12,32 +13,55 @@ const loadGame = () => {
 	if(typeof savedGame.advanced_gem !== "undefined") advanced_gem = savedGame.advanced_gem
 	if(typeof savedGame.mana_gem !== "undefined") mana_gem = savedGame.mana_gem
 
+	if(typeof savedGame.timesRuneChanceUp !== "undefined") timesRuneChanceUp = savedGame.timesRuneChanceUp
+	if(typeof savedGame.runeSpeed !== "undefined") runeSpeed = savedGame.runeSpeed
+	if(typeof savedGame.runePower !== "undefined") runePower = savedGame.runePower
+	if(typeof savedGame.runesMaxed !== "undefined") runesMaxed = savedGame.runesMaxed
+
 	if(typeof savedGame.speed_rune !== "undefined") speed_rune = savedGame.speed_rune
 	if(typeof savedGame.power_rune !== "undefined") power_rune = savedGame.power_rune
 	if(typeof savedGame.cost_rune !== "undefined") cost_rune = savedGame.cost_rune
+	if(typeof savedGame.shard_rune !== "undefined") shard_rune = savedGame.shard_rune
+
 	if(typeof savedGame.mega_speed_rune !== "undefined") mega_speed_rune = savedGame.mega_speed_rune
 	if(typeof savedGame.mega_power_rune !== "undefined") mega_power_rune = savedGame.mega_power_rune
+	if(typeof savedGame.mana_rune !== "undefined") mana_rune = savedGame.mana_rune
 }
 
 const saveGame = () => {
 	let gameSave = {
 	currentTab: game.currentTab,
 
+	//Settings
+	autoRune: autoRune,
+
+	//Unlocked
 	runesUnlocked: game.runesUnlocked,
 
+	//Currency
 	shard: game.currency.shard,
 	mana: game.currency.mana,
     
+	//Gems
     basic_gem: basic_gem,
     normal_gem: normal_gem,
 	advanced_gem: advanced_gem,
 	mana_gem: mana_gem,
 
+	//Runes
+	timesRuneChanceUp, timesRuneChanceUp,
+	runeSpeed: runeSpeed,
+	runePower: runePower,
+	runesMaxed: runesMaxed,
+
 	speed_rune: speed_rune,
 	power_rune: power_rune,
 	cost_rune: cost_rune,
+	shard_rune: shard_rune,
+
 	mega_speed_rune: mega_speed_rune,
 	mega_power_rune: mega_power_rune,
+	mana_rune: mana_rune,
 	}
 	localStorage.setItem("gameSave", JSON.stringify(gameSave))
 }
@@ -51,10 +75,19 @@ window.onload = function() {
 	loadGame()
 
     gems = [basic_gem, normal_gem, advanced_gem, mana_gem]
-	runes = [speed_rune, power_rune, cost_rune, mega_speed_rune, mega_power_rune]
+	runes = [
+		speed_rune, 
+		power_rune, 
+		cost_rune, 
+		shard_rune, 
+		mega_speed_rune, 
+		mega_power_rune, 
+		mana_rune
+	]
 
 	//Check if can rune prestige
-	if(game.currency.shard >= 1000) document.querySelector(".runePrestige").style.display = "flex"
+	totalChance = 0
+	if(game.currency.shard >= 1000) document.querySelector(".prestige-container").style.display = "flex"
 	for(i = 0; i < runes.length; i++) {
         if(runes[i].amount >= 1) runeDOM[i].style.display = "grid"
 		totalChance += runes[i].chance
@@ -66,7 +99,9 @@ window.onload = function() {
 			gem_manafy[i].style.display = "inline"
 		}
 	}
+	document.querySelectorAll(".chance-increase-cost")[0].textContent = 1 + timesRuneChanceUp * 2
 
+	updateSettingUI()
 	openTab(game.currentTab)
     updateUI()
 }
