@@ -11,16 +11,21 @@
 }
 
 :root {
-    --progressWidth: 5%;
+    --bgcolor: #151515;
+    --textcolor: white;
+    --btncolor: transparent;
+    --btnborder: white;
+    --progresscolor: aquamarine;
+    --runetext: red;
 }
 
 body {
-    background-color: #151515;
+    background-color: var(--bgcolor);
 }
 
 .shard-container {
-    border: 0.2vmin solid white;
-    color: white;
+    border: 0.2vmin solid var(--btnborder);
+    color: var(--textcolor);
     border-top: none;
     border-left: none;
     padding: 1vmin;
@@ -36,7 +41,7 @@ body {
 }
 
 .currency {
-    text-shadow: 0 0 0.7vmin currentColor;
+    text-shadow: 0 0 0.3vmin currentColor;
 }
 
 nav {
@@ -45,7 +50,7 @@ nav {
     align-items: center;
     flex-direction: column;
     font-size: 2vmin;
-    color: white;
+    color: var(--textcolor);
     width: 10vmin;
     height: 100vh;
     z-index: 1;
@@ -62,7 +67,7 @@ nav {
 }
 
 .navBtn:hover {
-    background-color: grey;
+    background-color: var(--btncolor);
     transform: translateX(10%);
     border-bottom: 1px solid currentColor;
 }
@@ -84,14 +89,17 @@ nav {
     align-items: center;
     width: 20vmin;
     height: 10vmin;
-    border: 0.2vmin solid white;
+    border: 0.2vmin solid var(--btnborder);
     font-size: 1.4vmin;
     cursor: pointer;
     transition: all 150ms ease;
+    color: var(--textcolor);
 }
 
 .setting:hover {
     border: 0.2vmin solid grey;
+    scale: 1.05;
+    background-color: var(--btncolor);
 }
 
 .gem {
@@ -101,21 +109,24 @@ nav {
     font-size: 1.4vmin;
     width: 28vmin;
     height: 15vmin;
-    border: 0.2vmin solid white;
+    border: 0.2vmin solid var(--btnborder);
     border-radius: 1vmin;
+    color: var(--textcolor);
     transition: all 200ms ease-in-out;
     line-height: 2vmin;
 }
 
 .gem:hover {
     border: 0.2vmin solid grey;
+    scale: 1.05;
+    background-color: var(--btncolor);
 }
 
 .progress {
     position: absolute;
     transform: translate(1vmin, 12.5vmin);
-    background-color: aquamarine;
-    box-shadow: 0 0 1vmin aquamarine;
+    background-color: var(--progresscolor);
+    box-shadow: 0 0 1vmin var(--progresscolor);
     height: 1.5vmin;
     border-radius: 1vmin;
     transition: all 100ms ease;
@@ -162,6 +173,7 @@ nav {
     font-size: 2vmin;
     width: 100vw;
     text-align: center;
+    color: var(--textcolor);
 }
 
 .gem-name,
@@ -172,22 +184,30 @@ nav {
     text-align: center;
 }
 
+.rune-name {
+    color: var(--runetext);
+}
+
 .rune {
     display: grid;
     place-content: center;
-    border: 1px solid orangered;
+    border: 1px solid var(--runetext);
     height: 12vmin;
     width: 28vmin;
     border-radius: 1vmin;
     text-align: center;
     font-size: 1.4vmin;
+    color: var(--textcolor);
     transition: all 150ms ease-in-out;
     line-height: 2vmin;
 }
 
+
+
 .rune-rarity {
     font-style: italic;
     transform: translateY(1vmin);
+    text-shadow: 0 0 0.3vmin black;
 }
 
 .prestige-container {
@@ -197,7 +217,7 @@ nav {
     justify-content: center;
     align-items: center;
     position: absolute;
-    color: white;
+    color: var(--textcolor);
     width: 100vw;
     font-size: 1.5vmin;
 }
@@ -207,11 +227,19 @@ nav {
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: 1px solid white;
+    border: 1px solid var(--btnborder);
     width: 15vmin;
     height: 6vmin;
     padding: 2vmin;
     cursor: pointer;
+}
+
+#runes-unlocked {
+    position: absolute;
+    text-align: center;
+    width: 100vw;
+    transform: translateY(-6vmin);
+    color: var(--textcolor);
 }
 
 .chance-increase {
@@ -226,6 +254,30 @@ nav {
     border: 0.2vmin solid blue;
     cursor: pointer;
     font-size: 1vmin;
+}
+
+#rune-container {
+    grid-template-columns: repeat(4, 30vmin);
+    grid-template-rows: repeat(4, 15vmin);
+}
+
+.rune-gotten {
+    position: absolute;
+    width: 100vw;
+    text-align: center;
+    bottom: 2vmin;
+    font-size: 1.5vmin;
+    transition: all 500ms ease;
+}
+
+.rune-chances {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    font-size: 1.4vmin;
+    width: 100vw;
+    bottom: -15vmin;
+    color: var(--textcolor);
 }
 
 .runePrestige:hover,
