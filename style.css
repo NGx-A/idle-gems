@@ -238,6 +238,7 @@ nav {
     position: absolute;
     text-align: center;
     width: 100vw;
+    font-size: 1.3vmin;
     transform: translateY(-6vmin);
     color: var(--textcolor);
 }
