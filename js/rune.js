@@ -155,6 +155,7 @@ const createRune = (number) => {
     let x = 0
     runesGotten = 0
     runesMaxed = 0
+    totalCP = 0
     for(i = 0; i < runes.length; i++) {
         if(between(number, x, (runes[i].chance + x))) {
             if(runes[i].rarity == "common") {

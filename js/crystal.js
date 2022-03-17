@@ -34,6 +34,7 @@ const getCrystal = (id) => {
     }
     crystals[id].amount++
     game.currency.shard -= 1e5
+    if(game.currency.shard < 5) game.currency.shard = 5
 
     totalCP = 0
     for(i = 0; i < runes.length; i++) {
