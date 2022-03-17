@@ -1,5 +1,5 @@
 let game = {
-    version: "v0.1.1",
+    version: "v0.2.0",
     lastUpdate: Date.now(),
     currentTab: "gem-container",
 
@@ -11,13 +11,16 @@ let game = {
     runesUnlocked: false,
     runeCost: 1e3,
     runePrestiges: 0,
+
+    crystalsUnlocked: false,
 }
 const tabs = document.querySelectorAll(".tab")
+const gem_container = document.querySelector("#gem-container")
 
 let gems = []
 
 class gem {
-    constructor(cost, costScaling, amount, bought, effect, tier, speed, time, timeNeeded, mana) {
+    constructor(cost, costScaling, amount, bought, effect, tier, speed, time, timeNeeded, mana, rc, gc, bc, wc, blc) {
         this.cost = cost
         this.costScaling = costScaling
         this.amount = 0
@@ -28,14 +31,20 @@ class gem {
         this.time = 0           
         this.timeNeeded = timeNeeded    //in seconds
         this.mana = 0
+        this.rc = 0
+        this.gc = 0
+        this.bc = 0
+        this.wc = 0
+        this.blc = 0
     }
 }
 
-let basic_gem = new gem(5, 1.25, null, null, null, null, 1, null, 5, null)
-let normal_gem = new gem(50, 1.35, null, null, null, null, 1, null, 7.5, null)
-let advanced_gem = new gem(250, 1.65, null, null, null, null, 1, null, 30, null)
-let mana_gem = new gem(1000, 10, null, null, null, null, 1, null, 90, null)
-let complex_gem = new gem(2.5e3, 1.65, null, null, null, null, 1, null, 60, null)
+let basic_gem = new gem(5, 1.25, null, null, null, null, 1, null, 5, null, null, null, null, null, null)
+let normal_gem = new gem(50, 1.35, null, null, null, null, 1, null, 7.5, null, null, null, null, null, null)
+let advanced_gem = new gem(250, 1.65, null, null, null, null, 1, null, 30, null, null, null, null, null, null)
+let mana_gem = new gem(1000, 10, null, null, null, null, 1, null, 90, null, null, null, null, null, null)
+let complex_gem = new gem(2.5e3, 1.65, null, null, null, null, 1, null, 60, null, null, null, null, null, null)
+let enchanted_gem = new gem(3, 1.5, null, null, null, null, 1, null, 100, null, null, null, null, null, null)
 
 const gameLoop = () => {
     let diff = (Date.now() - game.lastUpdate) / 1000
@@ -53,11 +62,28 @@ const gameLoop = () => {
                 if(i == 2) basic_gem.amount += advanced_gem.effect
                 if(i == 3) game.currency.mana += mana_gem.effect
                 if(i == 4) normal_gem.amount += complex_gem.effect
+                if(i == 5) {
+                    let x = 0
+                    while(x < enchanted_gem.effect) {
+                        let randomNumber = Math.round(Math.random() * 3)
+                        if(randomNumber == 0) basic_gem.mana++
+                        if(randomNumber == 1) normal_gem.mana++
+                        if(randomNumber == 2) advanced_gem.mana++
+                        if(randomNumber == 3) complex_gem.mana++
+                        x++
+                    }
+                }
+                if(game.currency.shard >= 1e4) {
+                    game.crystalsUnlocked = true
+                    document.querySelectorAll(".navBtn")[3].style.display = "inline"
+                }
+                
                 setGemEffect()
                 if(game.currency.shard >= game.runeCost) {
                     if(autoRune) return getRune()
                     document.querySelector(".prestige-container").style.display = "flex"
                 }
+                
             }
         } 
     }
@@ -67,13 +93,13 @@ const gameLoop = () => {
     game.lastUpdate = Date.now()
 }
 
-const craftGem = (id) => {
-    if(game.currency.shard < gems[id].cost) return
-    game.currency.shard -= gems[id].cost
+const craftGem = (id, currencyToUse) => {
+    if(game.currency[currencyToUse] < gems[id].cost) return
+    game.currency[currencyToUse] -= gems[id].cost
     gems[id].amount++
     gems[id].bought++
     gems[id].cost *= gems[id].costScaling
-    gems[id].speed = (1 + (gems[id].bought - gems[id].bought % 10) / 100 + gems[id].mana * (0.1 + mana_rune.effect)) * runeSpeed
+    
     setGemEffect()
     if(id == 3) {
         document.querySelectorAll(".shard")[1].style.display = "inline"
@@ -83,20 +109,16 @@ const craftGem = (id) => {
     }
 }
 
-const manafyGem = (id) => {
-    if(game.currency.mana < 1) return
-    gems[id].mana++
-    game.currency.mana--
-    gems[id].speed = (1 + (gems[id].bought - gems[id].bought % 10) / 100 + gems[id].mana * (0.1 + mana_rune.effect)) * runeSpeed
-    setGemEffect()
-}
-
 const setGemEffect = () => {
-    basic_gem.effect = (1 + base_rune.effect + mega_base_rune.effect) * basic_gem.amount * runePower * runeShard * (1 + basic_gem.mana * (0.1 + mana_rune.effect))
-    normal_gem.effect = (5 + base_rune.effect + mega_base_rune.effect) * normal_gem.amount * runePower * runeShard * (1 + normal_gem.mana * (0.1 + mana_rune.effect))
-    advanced_gem.effect = advanced_gem.amount * runePower * (1 + advanced_gem.mana * (0.1 + mana_rune.effect)) * (1 + gem_rune.effect)
-    mana_gem.effect = mana_gem.amount * runePower * (1 + mana_gem.mana * (0.1 + mana_rune.effect)) * (1 + mana_rune.effect)
-    complex_gem.effect = complex_gem.amount * runePower * (1 + complex_gem.mana * (0.1 + mana_rune.effect)) * (1 + gem_rune.effect)
+    basic_gem.effect = (1 + base_rune.effect + mega_base_rune.effect) * basic_gem.amount * runePower * runeShard * (1 + basic_gem.mana * (0.1 + mana_rune.effect)) * ((basic_gem.rc + 1) * ( basic_gem.blc + 1))
+    normal_gem.effect = (5 + base_rune.effect + mega_base_rune.effect) * normal_gem.amount * runePower * runeShard * (1 + normal_gem.mana * (0.1 + mana_rune.effect)) * ((normal_gem.rc + 1) * ( normal_gem.blc + 1))
+    advanced_gem.effect = advanced_gem.amount * runePower * (1 + advanced_gem.mana * (0.1 + mana_rune.effect)) * (1 + gem_rune.effect) * ((advanced_gem.rc + 1) * ( advanced_gem.blc + 1))
+    mana_gem.effect = mana_gem.amount * runePower * (1 + mana_gem.mana * (0.1 + mana_rune.effect)) * (1 + mana_rune.effect) * ((mana_gem.rc + 1) * ( mana_gem.blc + 1))
+    complex_gem.effect = complex_gem.amount * runePower * (1 + complex_gem.mana * (0.1 + mana_rune.effect)) * (1 + gem_rune.effect) * ((complex_gem.rc + 1) * ( complex_gem.blc + 1))
+    enchanted_gem.effect = Math.floor(enchanted_gem.amount * runePower * (1 + enchanted_gem.mana * (0.1 + mana_rune.effect)) * (1 + gem_rune.effect)) * ((enchanted_gem.rc + 1) * ( enchanted_gem.blc + 1))
+    for(i = 0; i < gems.length; i++) {
+        gems[i].speed = (1 + (gems[i].bought - gems[i].bought % 10) / 100 + gems[i].mana * (0.1 + mana_rune.effect)) * runeSpeed * ((gems[i].bc + 1) * ( gems[i].blc + 1))
+    }
 }
 
 const openTab = (tab) => {

@@ -17,10 +17,12 @@
     --btnborder: white;
     --progresscolor: aquamarine;
     --runetext: red;
+    --crystalbg: white;
 }
 
 body {
     background-color: var(--bgcolor);
+    overflow: hidden;
 }
 
 .shard-container {
@@ -207,7 +209,7 @@ nav {
 .rune-rarity {
     font-style: italic;
     transform: translateY(1vmin);
-    text-shadow: 0 0 0.3vmin black;
+    text-shadow: 0 0 0.3vmin currentColor;
 }
 
 .prestige-container {
@@ -271,6 +273,15 @@ nav {
     transition: all 500ms ease;
 }
 
+.rune-cost {
+    position: absolute;
+    font-size: 1.2vmin;
+    text-align: center;
+    width: 100vw;
+    top: 0;
+    color: var(--textcolor);
+}
+
 .rune-chances {
     display: flex;
     flex-direction: column;
@@ -284,6 +295,87 @@ nav {
 .runePrestige:hover,
 .chance-increase:hover {
     border-color: grey;
+}
+
+#crystal-container {
+    grid-template-columns: repeat(5, 30vmin);
+}
+
+.crystal-prestige {
+    position: absolute;
+    width: 100vw;
+    text-align: center;
+    top: -7vmin;
+    font-size: 1.4vmin;
+    color: var(--textcolor);
+}
+
+.crystal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 15vmin;
+    border: 0.2vmin solid var(--btnborder);
+    height: 10vmin;
+    border-radius: 1vmin 0.2vmin 2vmin 0.4vmin;
+    cursor: pointer;
+    transition: all 200ms ease;
+    color: var(--textcolor);
+}
+
+.crystal:hover {
+    background-color: var(--btncolor);
+    scale: 1.05;
+}
+
+.rune-worth {
+    position: absolute;
+    width: 100vw;
+    font-size: 1.2vmin;
+    text-align: center;
+    transform: translateY(-4vmin);
+    color: var(--textcolor);
+}
+
+.infusion-container {
+    position: absolute;
+    width: 100vw;
+    top: 20vmin;
+    display: grid;
+    place-content: center;
+    grid-template-columns: repeat(3, 45vmin);
+    grid-template-rows: repeat(3, 25vmin);
+}
+
+.infusion {
+    border: 0.2vmin solid var(--btnborder);
+    font-size: 1.5vmin;
+    height: 20vmin;
+    width: 40vmin;
+    border-radius: 1vmin 0.2vmin 2vmin 0.4vmin;
+}
+
+.gem-to-infuse {
+    position: relative;
+    transform: translate(2vmin);
+    color: var(--textcolor);
+}
+
+.crystal-infuse-color {
+    position: relative;
+    transform: translate(70%, -3vmin);
+    margin: 2vmin;
+    cursor: pointer;
+    width: 20vmin;
+    text-align: center;
+    text-shadow: 0.1vmin 0.1vmin 0.2vmin var(--textcolor);
+    font-weight: bold;
+    transition: all 200ms ease;
+}
+
+.crystal-infuse-color:hover {
+    scale: 1.05;
 }
 
 .version {

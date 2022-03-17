@@ -46,14 +46,14 @@ const updateSettingUI = () => {
         domRoot.style.setProperty("--progresscolor", "#ffd60a")
     }
     if(theme == 3) {    //Custom #2
-        domRoot.style.setProperty("--bgcolor", "#47126B")
-        domRoot.style.setProperty("--textcolor", "#D7A4E0")
-        domRoot.style.setProperty("--runetext", "#db63f0")
-        domRoot.style.setProperty("--btncolor", "#6411AD")
-        domRoot.style.setProperty("--btnborder", "#822FAF")
-        domRoot.style.setProperty("--progresscolor", "#C05299")
+        domRoot.style.setProperty("--bgcolor", "#261132")
+        domRoot.style.setProperty("--textcolor", "#CDF7F6")
+        domRoot.style.setProperty("--runetext", "#FFC857")
+        domRoot.style.setProperty("--btncolor", "#8FB8DE")
+        domRoot.style.setProperty("--btnborder", "#9A94BC")
+        domRoot.style.setProperty("--progresscolor", "#CDF7F6")
     }
-    if(theme == 4) {    //Custom #2
+    if(theme == 4) {    //Custom #3
         domRoot.style.setProperty("--bgcolor", "#042A2B")
         domRoot.style.setProperty("--textcolor", "#5EB1BF")
         domRoot.style.setProperty("--runetext", "#90d0dc")

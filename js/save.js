@@ -7,6 +7,8 @@ const loadGame = () => {
 	if(typeof savedGame.runeCost !== "undefined") game.runeCost = savedGame.runeCost
 	if(typeof savedGame.runePrestiges !== "undefined") game.runePrestiges = savedGame.runePrestiges
 
+	if(typeof savedGame.crystalsUnlocked !== "undefined") game.crystalsUnlocked = savedGame.crystalsUnlocked
+
 	if(typeof savedGame.autoRune !== "undefined") autoRune = savedGame.autoRune
 	if(typeof savedGame.theme !== "undefined") theme = savedGame.theme
 	
@@ -18,12 +20,14 @@ const loadGame = () => {
 	if(typeof savedGame.advanced_gem !== "undefined") advanced_gem = savedGame.advanced_gem
 	if(typeof savedGame.mana_gem !== "undefined") mana_gem = savedGame.mana_gem
 	if(typeof savedGame.complex_gem !== "undefined") complex_gem = savedGame.complex_gem
+	if(typeof savedGame.enchanted_gem !== "undefined") enchanted_gem = savedGame.enchanted_gem
 
 	if(typeof savedGame.timesRuneChanceUp !== "undefined") timesRuneChanceUp = savedGame.timesRuneChanceUp
 	if(typeof savedGame.runeSpeed !== "undefined") runeSpeed = savedGame.runeSpeed
 	if(typeof savedGame.runePower !== "undefined") runePower = savedGame.runePower
 	if(typeof savedGame.runesMaxed !== "undefined") runesMaxed = savedGame.runesMaxed
 	if(typeof savedGame.runesGotten !== "undefined") runesGotten = savedGame.runesGotten
+	if(typeof savedGame.totalCP !== "undefined") totalCP = savedGame.totalCP
 
 	if(typeof savedGame.speed_rune !== "undefined") speed_rune = savedGame.speed_rune
 	if(typeof savedGame.power_rune !== "undefined") power_rune = savedGame.power_rune
@@ -44,6 +48,12 @@ const loadGame = () => {
 	if(typeof savedGame.rune_rune !== "undefined") rune_rune = savedGame.rune_rune
 	if(typeof savedGame.ultra_speed_rune !== "undefined") ultra_speed_rune = savedGame.ultra_speed_rune
 	if(typeof savedGame.ultra_power_rune !== "undefined") ultra_power_rune = savedGame.ultra_power_rune
+
+	if(typeof savedGame.red_crystal !== "undefined") red_crystal = savedGame.red_crystal
+	if(typeof savedGame.green_crystal !== "undefined") green_crystal = savedGame.green_crystal
+	if(typeof savedGame.blue_crystal !== "undefined") blue_crystal = savedGame.blue_crystal
+	if(typeof savedGame.white_crystal !== "undefined") white_crystal = savedGame.white_crystal
+	if(typeof savedGame.black_crystal !== "undefined") black_crystal = savedGame.black_crystal
 }
 
 const saveGame = () => {
@@ -58,6 +68,7 @@ const saveGame = () => {
 	runesUnlocked: game.runesUnlocked,
 	runeCost: game.runeCost,
 	runePrestiges: game.runePrestiges,
+	crystalsUnlocked: game.crystalsUnlocked,
 
 	//Currency
 	shard: game.currency.shard,
@@ -69,6 +80,7 @@ const saveGame = () => {
 	advanced_gem: advanced_gem,
 	mana_gem: mana_gem,
 	complex_gem: complex_gem,
+	enchanted_gem: enchanted_gem,
 
 	//Runes
 	timesRuneChanceUp, timesRuneChanceUp,
@@ -76,6 +88,7 @@ const saveGame = () => {
 	runePower: runePower,
 	runesMaxed: runesMaxed,
 	runesGotten: runesGotten,
+	totalCP: totalCP,
 
 	speed_rune: speed_rune,
 	power_rune: power_rune,
@@ -96,6 +109,12 @@ const saveGame = () => {
 	rune_rune: rune_rune,
 	ultra_speed_rune: ultra_speed_rune,
 	ultra_power_rune: ultra_power_rune,
+
+	red_crystal: red_crystal,
+	green_crystal: green_crystal,
+	blue_crystal: blue_crystal,
+	white_crystal: white_crystal,
+	black_crystal: black_crystal,
 	}
 	localStorage.setItem("gameSave", JSON.stringify(gameSave))
 }
@@ -113,7 +132,8 @@ window.onload = function() {
 		normal_gem, 
 		advanced_gem, 
 		mana_gem,
-		complex_gem
+		complex_gem,
+		enchanted_gem,
 	]
 	runes = [
 		speed_rune, 
@@ -132,6 +152,14 @@ window.onload = function() {
 		rune_rune,
 		ultra_speed_rune,
 		ultra_power_rune,
+	]
+
+	crystals = [
+		red_crystal,
+		green_crystal,
+		blue_crystal,
+		white_crystal,
+		black_crystal
 	]
 
 	//Check if can rune prestige
@@ -175,15 +203,23 @@ window.onload = function() {
 	rune_effect[5].textContent = `+${format(runes[5].effect, 1)} `
 	rune_effect[9].textContent = `+${format(runes[9].effect, 1)} `
 
-
 	if(game.runesUnlocked) {
+		document.querySelectorAll(".navBtn")[2].style.display = "inline"
 		document.querySelectorAll(".gem")[3].style.display = "grid"
 		document.querySelectorAll(".gem")[4].style.display = "grid"
+		document.querySelectorAll(".gem")[5].style.display = "grid"
 		document.querySelectorAll(".shard")[1].style.display = "inline"
 		for(i = 0; i < gem_manafy.length; i++) {
 			gem_manafy[i].style.display = "inline"
 		}
 	}
+
+	if(game.crystalsUnlocked) {
+		document.querySelectorAll(".navBtn")[3].style.display = "inline"
+	}
+
+	sortRunes()
+
 	document.querySelector("#runes-unlocked").textContent = `Runes unlocked: ${runesGotten} / ${runes.length}`
 	document.querySelectorAll(".chance-increase-cost")[0].textContent = 1 + timesRuneChanceUp * 2
 

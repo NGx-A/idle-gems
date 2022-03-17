@@ -17,6 +17,12 @@ const rune_effect = document.querySelectorAll(".rune-effect")
 const rune_desc = document.querySelectorAll(".rune-desc")
 const rune_rarity = document.querySelectorAll(".rune-rarity")
 
+const red_crystal_effect = document.querySelectorAll(".red-crystal-effect")
+const green_crystal_effect = document.querySelectorAll(".green-crystal-effect")
+const blue_crystal_effect = document.querySelectorAll(".blue-crystal-effect")
+const white_crystal_effect = document.querySelectorAll(".white-crystal-effect")
+const black_crystal_effect = document.querySelectorAll(".black-crystal-effect")
+
 const updateUI = () => {
     currency[0].textContent = format(game.currency.shard, 1)
     currency[1].textContent = format(Math.floor(game.currency.mana))
@@ -33,11 +39,25 @@ const updateUI = () => {
     document.querySelector("#rune-power").textContent = format((runePower - 1)* 100, 1)
     document.querySelector("#rune-cost").textContent = format(cost_rune.effect * 100, 1)
 
-    document.querySelector("#common-chance").textContent = `Common: ${format(1 / (totalChance / (runes[0].chance + runes[1].chance + runes[2].chance + runes[3].chance + runes[4].chance + runes[5].chance)) * 100)}%`
-    document.querySelector("#uncommon-chance").textContent = `Uncommon: ${format(1 / (totalChance / (runes[6].chance + runes[7].chance + runes[8].chance + runes[9].chance + runes[10].chance)) * 100)}%`
-    document.querySelector("#rare-chance").textContent = `Rare: ${format(1 / (totalChance / (runes[11].chance + runes[12].chance)) * 100)}%`
-    document.querySelector("#epic-chance").textContent = `Epic: 0%`
-    document.querySelector("#legendary-chance").textContent = `Legendary: ${format(1 / (totalChance / (runes[13].chance + runes[14].chance + runes[15].chance)) * 100, 2)}%`
+    document.querySelector(".rune-cost").textContent = `Next rune at ${format(game.runeCost, 2)} Shards`
+    document.querySelector("#common-chance").textContent = `Common: ${format(1 / (totalChance / commonChance) * 100)}%`
+    document.querySelector("#uncommon-chance").textContent = `Uncommon: ${format(1 / (totalChance / uncommonChance) * 100)}%`
+    document.querySelector("#rare-chance").textContent = `Rare: ${format(1 / (totalChance / rareChance) * 100)}%`
+    document.querySelector("#epic-chance").textContent = `Epic: ${format(1 / (totalChance / epicChance) * 100)}%`
+    document.querySelector("#legendary-chance").textContent = `Legendary: ${format(1 / (totalChance / legendaryChance) * 100, 2)}%`
+
+    for(i = 0; i < crystals.length; i++) {
+        document.querySelectorAll(".crystal-amount")[i].textContent = crystals[i].amount
+    }
+    for(i = 0; i < red_crystal_effect.length; i++) {
+        red_crystal_effect[i].textContent = `+${format(gems[i].rc * (1 + gems[i].blc) * 100)}% Power`
+        green_crystal_effect[i].textContent = `+${format(gems[i].gc * (1 + gems[i].blc) * 100)}% Cheaper`
+        blue_crystal_effect[i].textContent = `+${format(gems[i].bc * (1 + gems[i].blc) * 100)}% Speed`
+        white_crystal_effect[i].textContent = `+${format(gems[i].wc * (1 + gems[i].blc), 2)} Extra gems`
+        black_crystal_effect[i].textContent = `+${format(gems[i].blc * 100)}% Crystal effect`
+    }
+
+    document.querySelector(".rune-worth").textContent = `Your runes are worth ${format(totalCP)}`
 }
 
 

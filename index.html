@@ -19,7 +19,8 @@
     <nav>
         <div class="navBtn" onclick="openTab('settings-container')">Settings</div>
         <div class="navBtn" onclick="openTab('gem-container')">Gems</div>
-        <div class="navBtn" onclick="openTab('rune-container')">Runes</div>
+        <div class="navBtn" style="display: none;" onclick="openTab('rune-container')">Runes</div>
+        <div class="navBtn" style="display: none;" onclick="openTab('crystal-container')">Crystals</div>
     </nav>
 
     <div class="prestige-container" style="display: none;">
@@ -35,73 +36,80 @@
 
     <div class="tab" id="gem-container">
         <div class="gem">
-            <div class="manafy" style="display: none;" onclick="manafyGem('0')">Enhance gem | <span class="mana-cost">1</span> mana</div>
-            <div class="left" onclick="craftGem('0')">
+            <div class="left" onclick="craftGem('0', 'shard')">
                 <span class="gem-name">BASIC GEM</span> 
                 <span class="gem-amount">Amount: 0</span> 
                 <span class="gem-speed">Speed: 0</span> 
                 <span>Cost: <span class="gem-cost"></span> Shards</span> 
             </div>
-            <div class="right" onclick="craftGem('0')">
+            <div class="right" onclick="craftGem('0', 'shard')">
                 <span>Produces <span class="gem-effect">1</span> shards</span>
             </div>
             <div class="progress"></div> 
-        </div>
+        </div> 
         <div class="gem">
-            <div class="manafy" style="display: none;" onclick="manafyGem('1')">Enhance gem | <span class="mana-cost">1</span> mana</div>
-            <div class="left" onclick="craftGem('1')">
+            <div class="left" onclick="craftGem('1', 'shard')">
                 <span class="gem-name">NORMAL GEM</span> 
                 <span class="gem-amount">Amount: 0</span> 
                 <span class="gem-speed">Speed: 0</span> 
                 <span>Cost: <span class="gem-cost"></span> Shards</span> 
             </div>
-            <div class="right" onclick="craftGem('1')">
-                <span>Produces <span class="gem-effect">5</span> shards</span> 
+            <div class="right" onclick="craftGem('1', 'shard')">
+                <span>Produces <span class="gem-effect">1</span> shards</span>
             </div>
-            <div class="progress"></div>
-        </div>
+            <div class="progress"></div> 
+        </div> 
         <div class="gem">
-            <div class="manafy" style="display: none;" onclick="manafyGem('2')">Enhance gem | <span class="mana-cost">1</span> mana</div>
-            <div class="left" onclick="craftGem('2')">
+            <div class="left" onclick="craftGem('2', 'shard')">
                 <span class="gem-name">ADVANCED GEM</span> 
                 <span class="gem-amount">Amount: 0</span> 
                 <span class="gem-speed">Speed: 0</span> 
                 <span>Cost: <span class="gem-cost"></span> Shards</span> 
             </div>
-            <div class="right" onclick="craftGem('2')">
-                <span>Produces <span class="gem-effect">1</span> basic gems </span> 
+            <div class="right" onclick="craftGem('2', 'shard')">
+                <span>Produces <span class="gem-effect">1</span> basic gems</span>
             </div>
-            <div class="progress"></div>
-        </div>
-
+            <div class="progress"></div> 
+        </div> 
         <div class="gem" style="display: none;">
-           <!-- <div class="manafy" style="display: none;" onclick="manafyGem('3')">Enhance gem | <span class="mana-cost">1</span> mana</div> -->
-            <div class="left"  onclick="craftGem('3')">
+            <div class="left" onclick="craftGem('3', 'shard')">
                 <span class="gem-name">MANA GEM</span> 
                 <span class="gem-amount">Amount: 0</span> 
                 <span class="gem-speed">Speed: 0</span> 
                 <span>Cost: <span class="gem-cost"></span> Shards</span> 
             </div>
-            <div class="right"  onclick="craftGem('3')">
-                <span>Produces <span class="gem-effect">1</span> mana </span> 
+            <div class="right" onclick="craftGem('3', 'shard')">
+                <span>Produces <span class="gem-effect">1</span> mana</span>
             </div>
-            <div class="progress"></div>
-        </div>
+            <div class="progress"></div> 
+        </div> 
         <div class="gem" style="display: none;">
-          <div class="manafy" style="display: none;" onclick="manafyGem('4')">Enhance gem | <span class="mana-cost">1</span> mana</div>
-            <div class="left"  onclick="craftGem('4')">
+            <div class="left" onclick="craftGem('4', 'shard')">
                 <span class="gem-name">COMPLEX GEM</span> 
                 <span class="gem-amount">Amount: 0</span> 
                 <span class="gem-speed">Speed: 0</span> 
                 <span>Cost: <span class="gem-cost"></span> Shards</span> 
             </div>
-            <div class="right"  onclick="craftGem('4')">
-                <span>Produces <span class="gem-effect">1</span> normal gems </span> 
+            <div class="right" onclick="craftGem('4', 'shard')">
+                <span>Produces <span class="gem-effect">1</span> normal gems</span>
             </div>
-            <div class="progress"></div>
-        </div>
+            <div class="progress"></div> 
+        </div> 
+        <div class="gem" style="display: none;">
+            <div class="left" onclick="craftGem('5', 'mana')">
+                <span class="gem-name">ENCHANTED GEM</span> 
+                <span class="gem-amount">Amount: 0</span> 
+                <span class="gem-speed">Speed: 0</span> 
+                <span>Cost: <span class="gem-cost"></span> Mana</span> 
+            </div>
+            <div class="right" onclick="craftGem('5', 'mana')">
+                <span>Enhances <span class="gem-effect">1</span> gems</span>
+            </div>
+            <div class="progress"></div> 
+        </div> 
     </div>
 
+    <div class="rune-cost">Next rune at 1k shards</div>
     <div class="rune-gotten" style="opacity: 0;">YES</div>
     <div class="tab" id="rune-container">
         <div class="rune-total">
@@ -119,9 +127,88 @@
             <span id="legendary-chance">Legendary: 1 / 5</span> 
         </div>
     </div>
+
+    <div class="tab" id="crystal-container">
+        <div class="crystal-prestige">Sacrifice random runes worth 10 and 100k shards to gain a crystal</div>
+        <div class="rune-worth">Your runes are worth: 0</div>
+        <div class="crystal" style="border-color: red;" onclick="getCrystal('0')">
+            <span class="crystal-name">Red Crystal</span>
+            <span class="crystal-amount">0</span>
+        </div>
+        <div class="crystal" style="border-color: limegreen;" onclick="getCrystal('1')">
+            <span class="crystal-name">Green Crystal</span>
+            <span class="crystal-amount">0</span>
+        </div>
+        <div class="crystal" style="border-color: blue;" onclick="getCrystal('2')">
+            <span class="crystal-name">Blue Crystal</span>
+            <span class="crystal-amount">0</span>
+        </div>
+        <div class="crystal" style="border-color: white;" onclick="getCrystal('3')">
+            <span class="crystal-name">White Crystal</span>
+            <span class="crystal-amount">0</span>
+        </div>
+        <div class="crystal" style="border-color: black;" onclick="getCrystal('4')">
+            <span class="crystal-name">Black Crystal</span>
+            <span class="crystal-amount">0</span>
+        </div>
+
+        <div class="infusion-container">
+            <div class="infusion">
+                <div class="gem-to-infuse">BASIC GEM</div>
+                <div class="crystal-infuse-color" style="color: orangered;" onclick="infuseGem('0', '0')"> <span class="red-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: limegreen;" onclick="infuseGem('0', '1')"> <span class="green-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: lightskyblue;" onclick="infuseGem('0', '2')"> <span class="blue-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: white;" onclick="infuseGem('0', '3')"> <span class="white-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: black;" onclick="infuseGem('0', '4')"> <span class="black-crystal-effect">+100% Speed</span></div>
+            </div>
+            <div class="infusion">
+                <div class="gem-to-infuse">NORMAL GEM</div>
+                <div class="crystal-infuse-color" style="color: orangered;" onclick="infuseGem('1', '0')"> <span class="red-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: limegreen;" onclick="infuseGem('1', '1')"> <span class="green-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: lightskyblue;" onclick="infuseGem('1', '2')"> <span class="blue-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: white;" onclick="infuseGem('1', '3')"> <span class="white-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: black;" onclick="infuseGem('1', '4')"> <span class="black-crystal-effect">+100% Speed</span></div>
+            </div>
+            <div class="infusion">
+                <div class="gem-to-infuse">ADVANCED GEM</div>
+                <div class="crystal-infuse-color" style="color: orangered;" onclick="infuseGem('2', '0')"> <span class="red-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: limegreen;" onclick="infuseGem('2', '1')"> <span class="green-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: lightskyblue;" onclick="infuseGem('2', '2')"> <span class="blue-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: white;" onclick="infuseGem('2', '3')"> <span class="white-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: black;" onclick="infuseGem('2', '4')"> <span class="black-crystal-effect">+100% Speed</span></div>
+            </div>
+            <div class="infusion">
+                <div class="gem-to-infuse">MANA GEM</div>
+                <div class="crystal-infuse-color" style="color: orangered;" onclick="infuseGem('3', '0')"> <span class="red-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: limegreen;" onclick="infuseGem('3', '1')"> <span class="green-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: lightskyblue;" onclick="infuseGem('3', '2')"> <span class="blue-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: white;" onclick="infuseGem('3', '3')"> <span class="white-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: black;" onclick="infuseGem('3', '4')"> <span class="black-crystal-effect">+100% Speed</span></div>
+            </div>
+            <div class="infusion">
+                <div class="gem-to-infuse">COMPLEX GEM</div>
+                <div class="crystal-infuse-color" style="color: orangered;" onclick="infuseGem('4', '0')"> <span class="red-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: limegreen;" onclick="infuseGem('4', '1')"> <span class="green-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: lightskyblue;" onclick="infuseGem('4', '2')"> <span class="blue-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: white;" onclick="infuseGem('4', '3')"> <span class="white-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: black;" onclick="infuseGem('4', '4')"> <span class="black-crystal-effect">+100% Speed</span></div>
+            </div>
+            <div class="infusion">
+                <div class="gem-to-infuse">ENCHANTED GEM</div>
+                <div class="crystal-infuse-color" style="color: orangered;" onclick="infuseGem('5', '0')"> <span class="red-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: limegreen;" onclick="infuseGem('5', '1')"> <span class="green-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: lightskyblue;" onclick="infuseGem('5', '2')"> <span class="blue-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: white;" onclick="infuseGem('5', '3')"> <span class="white-crystal-effect">+100% Speed</span></div>
+                <div class="crystal-infuse-color" style="color: black;" onclick="infuseGem('5', '4')"> <span class="black-crystal-effect">+100% Speed</span></div>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script src="js/game.js"></script>
 <script src="js/rune.js"></script>
+<script src="js/crystal.js"></script>
+
 <script src="js/ui.js"></script>
 <script src="js/setting.js"></script>
 <script src="js/format.js"></script>

@@ -1,4 +1,17 @@
 let runes = []
+
+let commonRunes = []
+let uncommonRunes = []
+let rareRunes = []
+let epicRunes = []
+let legendaryRunes = []
+
+let commonChance = 0
+let uncommonChance = 0
+let rareChance = 0
+let epicChance = 0
+let legendaryChance = 0
+
 const rune_container = document.querySelector("#rune-container")
 
 class rune {
@@ -95,11 +108,11 @@ const getRune = () => {
     timesRuneChanceUp = 0
     game.currency.shard = 5 + bonus_rune.effect
     game.currency.mana = 0
-    game.runeCost += 250 * (1 + Math.floor(game.runePrestiges / 10))
+    game.runeCost = 1000 + (250 * game.runePrestiges) * (1 + Math.floor(game.runePrestiges / 10))
 
     for(i = 0; i < gems.length; i++) {
         document.querySelectorAll(".progress")[i].style.width = `0`
-        gems[i].amount = 0
+        gems[i].amount = 0 + gems[i].wc * (1 + gems[i].blc)
         gems[i].bought = 0
         gems[i].speed = 0
         gems[i].time = 0
@@ -109,6 +122,7 @@ const getRune = () => {
     document.querySelector(".prestige-container").style.display = "none"
     document.querySelectorAll(".gem")[3].style.display = "grid"
     document.querySelectorAll(".gem")[4].style.display = "grid"
+    document.querySelectorAll(".gem")[5].style.display = "grid"
 	document.querySelectorAll(".shard")[1].style.display = "inline"
 	for(i = 0; i < gem_manafy.length; i++) {
 		gem_manafy[i].style.display = "inline"
@@ -130,7 +144,9 @@ const getRune = () => {
     rune_effect[5].textContent = `+${format(runes[5].effect, 1)} `
     rune_effect[9].textContent = `+${format(runes[9].effect, 1)} `
 
+    document.querySelectorAll(".navBtn")[2].style.display = "inline"
     document.querySelector("#runes-unlocked").textContent = `Runes unlocked: ${runesGotten} / ${runes.length}`
+    document.querySelectorAll(".chance-increase-cost")[0].textContent = 1 + timesRuneChanceUp * 2
     setGemEffect()
 }
 
@@ -196,8 +212,16 @@ const createRune = (number) => {
             if(runes[i].rarity == "rare" && runes[i].amount >= 5) runesMaxed++
             if(runes[i].rarity == "epic" && runes[i].amount >= 3) runesMaxed++
             if(runes[i].rarity == "legendary" && runes[i].amount >= 1) runesMaxed++
-            
+
             if(runes[i].amount >= 1) runeDOM[i].style.display = "grid"
+    }
+
+    for(i = 0; i < runes.length; i++) {
+        if(runes[i].rarity == "common") totalCP += runes[i].amount
+        if(runes[i].rarity == "uncommon") totalCP += runes[i].amount * 3
+        if(runes[i].rarity == "rare") totalCP += runes[i].amount * 5
+        if(runes[i].rarity == "epic") totalCP += runes[i].amount * 7
+        if(runes[i].rarity == "Legendary") totalCP += runes[i].amount * 10
     }
 
     rune_rune.effect = rune_rune.amount * 0.05
@@ -226,12 +250,12 @@ const createRune = (number) => {
     runePower = 1 + power_rune.effect + mega_power_rune.effect + ultra_power_rune.effect
     runeShard = 1 + shard_rune.effect + mega_shard_rune.effect
 
-    basic_gem.cost = 5 * (1 - cost_rune.effect)
-    normal_gem.cost = 50 * (1 - cost_rune.effect)
-    advanced_gem.cost = 250 * (1 - cost_rune.effect)  
-    mana_gem.cost = 1000 * (1 - cost_rune.effect)
-    complex_gem.cost = 2500 * (1 - cost_rune.effect)
-    document.querySelectorAll(".chance-increase-cost")[0].textContent = 1 + timesRuneChanceUp * 2
+    basic_gem.cost = 5 * ((1 - cost_rune.effect) - basic_gem.gc * (basic_gem.blc + 1))
+    normal_gem.cost = 50 * ((1 - cost_rune.effect) - normal_gem.gc * (normal_gem.blc + 1))
+    advanced_gem.cost = 250 * ((1 - cost_rune.effect) - advanced_gem.gc * (advanced_gem.blc + 1))  
+    mana_gem.cost = 1000 * ((1 - cost_rune.effect) - mana_gem.gc * (mana_gem.blc + 1))
+    complex_gem.cost = 2500 * ((1 - cost_rune.effect) - complex_gem.gc * (complex_gem.blc + 1))
+    enchanted_gem.cost = 3 * ((1 - cost_rune.effect) - enchanted_gem.gc * (enchanted_gem.blc + 1))
 }
 
 let timesRuneChanceUp = 0
@@ -241,14 +265,67 @@ const upRuneChance = () => {
     timesRuneChanceUp++
     document.querySelectorAll(".chance-increase-cost")[0].textContent = 1 + timesRuneChanceUp * 2
     for(i = 0; i < runes.length; i++) {
-        if(runes[i].rarity == "uncommon") runes[i].chance *= 1.05 * (1 + mana_rune.effect)
-        if(runes[i].rarity == "rare") runes[i].chance *= 1.075 * (1 + mana_rune.effect)
-        if(runes[i].rarity == "epic") runes[i].chance *= 1.1 * (1 + mana_rune.effect)
-        if(runes[i].rarity == "legendary") runes[i].chance *= 1.12 * (1 + mana_rune.effect)
+        if(runes[i].rarity == "common") runes[i].chance *= 0.97 * (1 + mana_rune.effect)
+        if(runes[i].rarity == "uncommon") runes[i].chance *= 1.075 * (1 + mana_rune.effect)
+        if(runes[i].rarity == "rare") runes[i].chance *= 1.12 * (1 + mana_rune.effect)
+        if(runes[i].rarity == "epic") runes[i].chance *= 1.75 * (1 + mana_rune.effect)
+        if(runes[i].rarity == "legendary") runes[i].chance *= 1.2 * (1 + mana_rune.effect)
     }
     totalChance = 0
     for(i = 0; i < runes.length; i ++) {
         totalChance += runes[i].chance
+    }
+    
+    commonChance = 0
+    uncommonChance = 0
+    rareChance = 0
+    epicChance = 0
+    legendaryChance = 0
+    for(i = 0; i < commonRunes.length; i++) {
+        commonChance += commonRunes[i].chance
+    }
+    for(i = 0; i < uncommonRunes.length; i++) {
+        uncommonChance += uncommonRunes[i].chance
+    }
+    for(i = 0; i < rareRunes.length; i++) {
+        rareChance += rareRunes[i].chance
+    }
+    for(i = 0; i < epicRunes.length; i++) {
+        epicChance += epicRunes[i].chance
+    }
+    for(i = 0; i < legendaryRunes.length; i++) {
+        legendaryChance += legendaryRunes[i].chance
+    }
+}
+
+//place runes into rarity
+const sortRunes = () => {
+    for(i = 0; i < runes.length; i++) {
+        if(runes[i].rarity == "common") commonRunes.push(runes[i])
+        if(runes[i].rarity == "uncommon") uncommonRunes.push(runes[i])
+        if(runes[i].rarity == "rare") rareRunes.push(runes[i])
+        if(runes[i].rarity == "epic") epicRunes.push(runes[i])
+        if(runes[i].rarity == "legendary") legendaryRunes.push(runes[i])
+    }
+    commonChance = 0
+    uncommonChance = 0
+    rareChance = 0
+    epicChance = 0
+    legendaryChance = 0
+    for(i = 0; i < commonRunes.length; i++) {
+        commonChance += commonRunes[i].chance
+    }
+    for(i = 0; i < uncommonRunes.length; i++) {
+        uncommonChance += uncommonRunes[i].chance
+    }
+    for(i = 0; i < rareRunes.length; i++) {
+        rareChance += rareRunes[i].chance
+    }
+    for(i = 0; i < epicRunes.length; i++) {
+        epicChance += epicRunes[i].chance
+    }
+    for(i = 0; i < legendaryRunes.length; i++) {
+        legendaryChance += legendaryRunes[i].chance
     }
 }
 
