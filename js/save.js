@@ -25,6 +25,7 @@ const loadGame = () => {
 	if(typeof savedGame.timesRuneChanceUp !== "undefined") timesRuneChanceUp = savedGame.timesRuneChanceUp
 	if(typeof savedGame.runeSpeed !== "undefined") runeSpeed = savedGame.runeSpeed
 	if(typeof savedGame.runePower !== "undefined") runePower = savedGame.runePower
+	if(typeof savedGame.runeShard !== "undefined") runeShard = savedGame.runeShard
 	if(typeof savedGame.runesMaxed !== "undefined") runesMaxed = savedGame.runesMaxed
 	if(typeof savedGame.runesGotten !== "undefined") runesGotten = savedGame.runesGotten
 	if(typeof savedGame.totalCP !== "undefined") totalCP = savedGame.totalCP
@@ -86,6 +87,7 @@ const saveGame = () => {
 	timesRuneChanceUp, timesRuneChanceUp,
 	runeSpeed: runeSpeed,
 	runePower: runePower,
+	runeShard: runeShard,
 	runesMaxed: runesMaxed,
 	runesGotten: runesGotten,
 	totalCP: totalCP,
